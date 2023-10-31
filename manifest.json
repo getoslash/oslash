@@ -27,7 +27,7 @@
     "favicon"
   ],
   "host_permissions": [
-    "http://o/"
+    "*://*/*"
   ],
   "icons": {
     "16": "icons/icon16.png",

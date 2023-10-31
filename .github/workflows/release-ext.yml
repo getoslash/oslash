@@ -47,7 +47,7 @@ jobs:
         run: ./scripts/bump-version.sh ${{ steps.version.outputs.version }} ./package.json ./manifest.json
 
       - name: creating chrome-extension-local.zip
-        run: zip -r chrome-extension-local.zip dist
+        run: zip -r oslash-chrome-extension.zip oslash-chrome-extension
 
       - name: upload chrome-extension-local.zip to artifacts
         uses: actions/upload-artifact@v2

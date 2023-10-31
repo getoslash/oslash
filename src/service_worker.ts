@@ -20,10 +20,11 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   chrome.storage.local.set({ [SHORTCUTS_STORAGE_KEY]: JSON.stringify(defaultShortcuts) })
   // construct new rules on every installation
   const newRules = constructShortcutRules(defaultShortcuts)
-  const newRuleIDs = newRules.map(rule => rule.id)
+  const oldRules = await chrome.declarativeNetRequest.getDynamicRules();
+  const oldRuleIds = oldRules.map(rule => rule.id);
   // add the new rules as declarativeNetRequest Dynamic rules, and remove old rules if there are any
   await chrome.declarativeNetRequest.updateDynamicRules({
-    removeRuleIds: newRuleIDs,
+    removeRuleIds: oldRuleIds,
     addRules: newRules
   });
 });
@@ -67,9 +68,24 @@ chrome.omnibox.onInputEntered.addListener(function (text, disposition) {
 chrome.webRequest.onBeforeRequest.addListener((param) => {
   getSavedShortcuts().then((shortcuts) => {
     const savedShortcutNamesSet = new Set(shortcuts.map((shortcut) => shortcut.shortlink))
-    const requestShortcutName = param.url.replace('http://', '')
-    if (!savedShortcutNamesSet.has(requestShortcutName)) {
-      chrome.tabs.update({url: '/option.html'})
+    const requestUrl = new URL(param.url)
+    if (requestUrl.searchParams.has('q')) {
+      const queryValue = requestUrl.searchParams.get('q') ?? ''
+      if (queryValue.startsWith('o/')) {
+        if (!savedShortcutNamesSet.has(queryValue)) {
+          chrome.tabs.update({ url: '/option.html' })
+        }
+        else {
+          const url = shortcuts.find((shortcut) => shortcut.shortlink === queryValue)?.url ?? ''
+          chrome.tabs.update({ url })
+        }
+      }
+    }
+    else if (param.url.startsWith('http://o/')) {
+      const requestShortcutName = param.url.replace('http://', '')
+      if (!savedShortcutNamesSet.has(requestShortcutName)) {
+        chrome.tabs.update({ url: '/option.html' })
+      }
     }
   })
-}, {urls: ["*://o/*"]})
+}, { urls: ["*://*/search*", "*://o/*"] })
