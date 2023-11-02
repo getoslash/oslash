@@ -1,0 +1,72 @@
+name: Build and Release Extension
+
+# Generate extension builds on push to main
+
+on:
+  push:
+    branches: [main]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+permissions: write-all
+
+jobs:
+  chrome:
+    name: building chrome extension
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: checking out repository ⏬
+        uses: actions/checkout@v3
+
+      - name: get-npm-version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Extension
+        run: npm run build
+
+      - name: Find the upcoming release version from semantic-release
+        id: version
+        run: |
+          npm_config_yes=true npx semantic-release --dry-run
+          echo ::set-output name=version::$(cat .VERSION)
+          rm -f .VERSION
+
+      - name: log extension version
+        run: echo v${{ steps.version.outputs.version }}
+
+      - name: Bump up version in package.json and manifest.json
+        if: steps.version.outputs.version
+        run: ./scripts/bump-version.sh ${{ steps.version.outputs.version }} ./package.json ./manifest.json
+
+      - name: creating chrome-extension-local.zip
+        run: zip -r oslash-chrome-extension.zip oslash-chrome-extension
+
+      - name: upload chrome-extension-local.zip to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: chrome-extension-local
+          path: chrome-extension-local.zip
+
+      - name: reset changes for release notes
+        run: git checkout -- .
+
+      - name: generate release notes
+        run: npm run semantic-release
+
+      - name: 📎 Attach local flavour of extension ZIP file to GitHub release
+        if: steps.version.outputs.version
+        continue-on-error: true
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: chrome-extension-local.zip
+          tag: "@v${{ steps.version.outputs.version }}"
+          overwrite: true
