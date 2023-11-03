@@ -46,14 +46,14 @@ jobs:
         if: steps.version.outputs.version
         run: ./scripts/bump-version.sh ${{ steps.version.outputs.version }} ./package.json ./manifest.json
 
-      - name: creating chrome-extension-local.zip
+      - name: creating oslash-chrome-extension.zip
         run: zip -r oslash-chrome-extension.zip oslash-chrome-extension
 
-      - name: upload chrome-extension-local.zip to artifacts
+      - name: upload oslash-chrome-extension.zip to artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: chrome-extension-local
-          path: chrome-extension-local.zip
+          name: oslash-chrome-extension
+          path: oslash-chrome-extension.zip
 
       - name: reset changes for release notes
         run: git checkout -- .
@@ -67,6 +67,6 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: chrome-extension-local.zip
+          file: oslash-chrome-extension.zip
           tag: "@v${{ steps.version.outputs.version }}"
           overwrite: true
