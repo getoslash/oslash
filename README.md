@@ -1,16 +1,18 @@
-## Objective
+# OSlash is now open source and free forever!
 
-We are developing an open source version of the proprietary OSlash Shortcuts / GoLinks Alternative.
-This would be a browser extension which can be used to convert web-urls into short links/shortcuts and access them.
-The goal is to enable users to quickly manage and access all of their important links/websites.
+After a three-year journey of solving workplace information discovery, we’re sunsetting OSlash. Despite the lack of commercial success, we’ve been lucky to cultivate dedicated power users who love the product and can’t imagine working without their favorite OSlash shortcuts.
 
-### What is an o/ (pronounced as OSlash) shortcut ?
-An o/ shortcut is a short keyword that can be entered directly into your browser’s address bar to quickly access web resources.
+As a token of our gratitude, we’re releasing an open source extension for OSlash shortcuts.
 
-### How to use o/ shortcuts ?
-o/ shortcuts can be used by first installing a browser extension in your browser. Then one can add the url and their associated o/ shortcut via the browser extension UI interface.
-Once saved, this o/ shortcut can then be entered directly into the browser’s address bar by the user.
+You can continue using your OSlash shortcuts by importing them into this extension, latest by 29th November 2023.
 
-## Motivation
+### What is OSlash?
 
-Purpose of releasing this open source version is to give out a minimal and stable release of OSlash Shortcuts.
+OSlash is an open source browser extension that allows you to transform your most frequently used links (for example: `meet.google.com/tmk-iewh-pkp`) into simple, human-readable, and easy-to-remember shortcuts such as `o/meet-john` or `o/standup`.
+
+### Why did we build OSlash?
+
+Today, all important information at work resides in the cloud. This means that every important resource, file, or document is a link. Like you, we were tired of digging through our emails, Slack threads, and conversations for links every time we needed answers.
+Links are long, complex, and messy. Links get lost and buried in piles of more links. Links are tough to remember and share.
+
+So, we replaced them with OSlash shortcuts (or o/shortcuts) to make them more accessible, discoverable, and shareable. For everyone in the org.
