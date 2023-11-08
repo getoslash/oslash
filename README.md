@@ -15,8 +15,7 @@ OSlash is an open source browser extension that allows you to transform your mos
 Today, all important information at work resides in the cloud. This means that every important resource, file, or document is a link. Like you, we were tired of digging through our emails, Slack threads, and conversations for links every time we needed answers.
 Links are long, complex, and messy. Links get lost and buried in piles of more links. Links are tough to remember and share.
 
-So, we replaced them with OSlash shortcuts (or `o/shortcuts`) to make them more accessible, discoverable, and shareable. 
-
+So, we replaced them with OSlash shortcuts (or `o/shortcuts`) to make them more accessible, discoverable, and shareable.
 
 ### How to install OSlash?
 
@@ -33,10 +32,8 @@ To install the open source extension, please follow these steps:
 
 ### How to start creating and using OSlash shortcuts?
 
-- Go to the page for which you want to create a shortcut. 
-Click on the pinned OSlash extension.
+- Go to the page for which you want to create a shortcut.
+  Click on the pinned OSlash extension.
 - The URL of the page will be auto-populated in the dialog box
-Next, add the shortcut name and save. We recommend you pick a short, memorable, and recognizable shortcut name. 
+  Next, add the shortcut name and save. We recommend you pick a short, memorable, and recognizable shortcut name.
 - Your shortcut is now available! Close the dialog box and test it out by typing `o/<shortcut-name>` in a new tab or window.
-
-
