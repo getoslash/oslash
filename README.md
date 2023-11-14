@@ -21,7 +21,7 @@ So, we replaced them with OSlash shortcuts (or `o/shortcuts`) to make them more 
 
 To install the open source extension, please follow these steps:
 
-1. Start by downloading the OSlash [ZIP file](https://github.com/getoslash/oslash/releases) to your local drive and then extract its contents into a designated folder.
+1. Start by downloading the OSlash [ZIP file](https://github.com/getoslash/oslash/releases/download/%40v1.1.0/oslash-chrome-extension.zip) to your local drive and then extract its contents into a designated folder.
 2. Open your Chrome browser.
 3. Access the extensions management page by entering `chrome://extensions` into the Chrome address bar and pressing Enter.
 4. In the top right corner of the extensions page, toggle the switch to enable "Developer mode."
