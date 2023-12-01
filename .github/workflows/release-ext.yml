@@ -13,24 +13,37 @@ env:
 permissions: write-all
 
 jobs:
-  chrome:
-    name: building chrome extension
+  release-ext:
+    name: building and packaging extension
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
-      - name: checking out repository ⏬
+      - name: Checking out repository ⏬
         uses: actions/checkout@v3
 
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: Cache pnpm modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Setup pnpm and install required node_modules
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: latest
+          run_install: true
 
-      - name: Build Extension
-        run: npm run build
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: 16.x
+          cache: "pnpm"
+
+      - name: Build and package Extension
+        run: pnpm build
 
       - name: Find the upcoming release version from semantic-release
         id: version
@@ -42,12 +55,15 @@ jobs:
       - name: log extension version
         run: echo v${{ steps.version.outputs.version }}
 
-      - name: Bump up version in package.json and manifest.json
+      - name: Bump up version in package.json
         if: steps.version.outputs.version
-        run: ./scripts/bump-version.sh ${{ steps.version.outputs.version }} ./package.json ./manifest.json
+        run: ./scripts/bump-version.sh ${{ steps.version.outputs.version }} ./package.json
 
-      - name: creating oslash-chrome-extension.zip
-        run: zip -r oslash-chrome-extension.zip oslash-chrome-extension
+      - name: zipping chrome extension
+        run: zip -r oslash-chrome-extension.zip chrome-mv3-prod
+
+      - name: zipping firefox extension
+        run: zip -r oslash-firefox-extension.zip firefox-mv2-prod
 
       - name: upload oslash-chrome-extension.zip to artifacts
         uses: actions/upload-artifact@v2
@@ -55,18 +71,34 @@ jobs:
           name: oslash-chrome-extension
           path: oslash-chrome-extension.zip
 
+      - name: upload oslash-firefox-extension.zip to artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: oslash-firefox-extension
+          path: oslash-firefox-extension.zip
+
       - name: reset changes for release notes
         run: git checkout -- .
 
       - name: generate release notes
         run: npm run semantic-release
 
-      - name: 📎 Attach local flavour of extension ZIP file to GitHub release
+      - name: 📎 Attach local flavour of chrome extension ZIP file to GitHub release
         if: steps.version.outputs.version
         continue-on-error: true
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: oslash-chrome-extension.zip
+          tag: "@v${{ steps.version.outputs.version }}"
+          overwrite: true
+
+      - name: 📎 Attach local flavour of firefox extension ZIP file to GitHub release
+        if: steps.version.outputs.version
+        continue-on-error: true
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: oslash-firefox-extension.zip
           tag: "@v${{ steps.version.outputs.version }}"
           overwrite: true
