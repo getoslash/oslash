@@ -19,17 +19,23 @@ So, we replaced them with OSlash shortcuts (or `o/shortcuts`) to make them more 
 
 ### How to install OSlash?
 
-To install the open source extension, please follow these steps:
+To install the local version of open source extension, please follow these steps:
 
-1. Start by downloading the OSlash [ZIP file](https://github.com/getoslash/oslash/releases/download/%40v1.1.0/oslash-chrome-extension.zip) to your local drive and then extract its contents into a designated folder.
-2. Open your Chrome browser.
-3. Access the extensions management page by entering `chrome://extensions` into the Chrome address bar and pressing Enter.
-4. In the top right corner of the extensions page, toggle the switch to enable "Developer mode."
-5. With developer mode activated, click on the "Load unpacked" button that appears.
-6. Navigate to the location where you extracted the OSlash extension files and select the folder.
-7. After the folder is loaded, you should see the OSlash extension in your list of installed extensions.
-8. To have quick access to OSlash, locate it in the extensions list and click the `pin` icon, so it appears in your browser's toolbar.
-9. Here is a short video for the same: https://drive.google.com/file/d/1nPZqKjsDWJezidBEAS1R8fDgsb3AYWgg/view?usp=drive_link
+1. Go to the [Releases Page](https://github.com/getoslash/oslash/releases) and start by downloading the OSlash extension as per your browser name to your local drive and then extract its contents into a designated folder.
+2. Open your browser
+3. For chrome/brave/arc/chromium users:
+   1. Access the extensions management page by entering `chrome://extensions` into the Chrome address bar and pressing Enter.
+   2. In the top right corner of the extensions page, toggle the switch to enable "Developer mode."
+   3. With developer mode activated, click on the "Load unpacked" button that appears.
+   4. Navigate to the location where you extracted the OSlash extension files and select the folder.
+   5. After the folder is loaded, you should see the OSlash extension in your list of installed   extensions.
+   6. To have quick access to OSlash, locate it in the extensions list and click the `pin` icon, so it appears in your browser's toolbar.
+   7. Here is a short video for the same: https://drive.google.com/file/d/1nPZqKjsDWJezidBEAS1R8fDgsb3AYWgg/view?usp=drive_lin
+4. For firefox users:
+   1. Open the [about:debugging](https://firefox-source-docs.mozilla.org/devtools-user/about_colon_debugging/index.html) page, click the This Firefox option, click the Load Temporary Add-on button, then select any file in your extension's directory.
+   2. The extension now installs, and remains installed until you restart Firefox.
+   3. To have quick access to OSlash, locate it in the extensions list and click the `pin` icon, so it appears in your browser's toolbar.
+   
 
 ### How to start creating and using OSlash shortcuts?
 
