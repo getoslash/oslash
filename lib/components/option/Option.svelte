@@ -57,6 +57,10 @@
   // reset search query every-time shortcut list changes
   $: resetSearchQuery($shortcuts)
 
+  /**
+   * loads the shortcuts into the store from storage
+   * @returns {Promise<void>}
+   */
   async function loadShortcuts() {
     await shortcuts.init()
   }

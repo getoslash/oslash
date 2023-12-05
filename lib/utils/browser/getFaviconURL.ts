@@ -1,6 +1,11 @@
 import { isNonChromiumBrowser } from "./getBrowserName"
 
-export function getFaviconURL(u: string) {
+/** 
+ * gives the saved favicon url in browser of a given website
+ * @param {string} url the shortlink's url
+ * @returns {browser.declarativeNetRequest.Rule[] | chrome.declarativeNetRequest.Rule[]} declarative net request rules array
+ */
+export function getFaviconURL(shortcutURL: string) {
   let url: URL | null = null
   if (isNonChromiumBrowser()) {
     // NOTE: This is a fallback icon. Firefox does not support accessing cached favicon
@@ -11,7 +16,7 @@ export function getFaviconURL(u: string) {
   }
 
   if (url) {
-    url.searchParams.set("pageUrl", u)
+    url.searchParams.set("pageUrl", shortcutURL)
     url.searchParams.set("size", "32")
     return url.toString()
   }

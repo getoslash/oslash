@@ -1,7 +1,11 @@
-import { FIREFOX, SAFARI } from "~lib/constants/browserNames"
 import type { Shortcut } from "~lib/types"
 import { isNonChromiumBrowser } from "./getBrowserName"
 
+/** 
+ * construct the declarative net request rules for given shortcuts array
+ * @param {Shortcut[]} shortcuts shortcuts array
+ * @returns {browser.declarativeNetRequest.Rule[] | chrome.declarativeNetRequest.Rule[]} array of shortcut rules
+ */
 export function constructShortcutRules(shortcuts: Shortcut[]) {
   if (isNonChromiumBrowser()) {
     return shortcuts.map((shortcut, index) => {

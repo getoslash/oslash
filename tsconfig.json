@@ -6,7 +6,7 @@
   "include": [
     ".plasmo/index.d.ts",
     "./**/*.ts",
-    "./**/*.svelte"
+    "./**/*.svelte",
   ],
   "compilerOptions": {
     "paths": {
@@ -15,6 +15,6 @@
       ]
     },
     "baseUrl": ".",
-    "types": ["svelte", "chrome", "firefox-webext-browser"]
+    "types": ["svelte", "chrome", "firefox-webext-browser", "node"]
   }
 }

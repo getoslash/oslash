@@ -1,3 +1,8 @@
+/** 
+ * copies the given text to clipboard
+ * @param {string} text text to be copied
+ * @returns {void}
+ */
 export function copyToClipboard(text: string): void {
 	if (navigator.clipboard && navigator.clipboard.writeText) {
 		navigator.clipboard

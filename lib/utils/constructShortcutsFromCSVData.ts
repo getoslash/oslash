@@ -35,8 +35,8 @@ export async function constructShortcutsFromCSVData(csvData: string[][], savedSh
       const shortcut: Shortcut = {
         shortlink: shortcutRow[0],
         url: shortcutRow[1],
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
       return shortcut;
     }
